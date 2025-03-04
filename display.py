@@ -10,26 +10,35 @@ FPS = 60
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
 pygame.display.set_caption("nBody Simulation")
 
 clock = pygame.time.Clock()
 
-#system = simul.Simulation()
-system = simul.Simulation(3, (50, 50, 0.00015), [[50,0], [-50, 0], [200, 0]], [[0, -1], [0, 1], [0, 2]])
+system = simul.Simulation()
+#system = simul.Simulation(3, (50, 50, 0.00015), [[50,0], [-50, 0], [200, 0]], [[0, -1], [0, 1], [0, 2]])
 #system = simul.Simulation(nPlanets = 4, planetMasses = (25.,25.,25., 25.), planetPositions = [[100,0], [-100,0], [0,100], [0,-100]], startingVelocities= [[0,-1], [0,1], [1,0], [-1,0]])
 #system = simul.Simulation(planetPositions=[[float(random.randint(-200, -200)), float(random.randint(-200, 200))] for _ in range(3)], startingVelocities=[[random.uniform(-1,1),random.uniform(-1,1)] for _ in range(3)])
 
 running = True
 
 def center_origin(surf, p):
-    return (p[0] + surf.get_width() // 2, p[1] + surf.get_height() // 2)
+    return (p[0] + centerOffset[0] + surf.get_width() // 2, p[1] + centerOffset[1] + surf.get_height() // 2)
+
+centerOffset = [0,0]
 
 while running:
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            downPos = pygame.mouse.get_pos()
+        if event.type == pygame.MOUSEBUTTONUP:
+            upPos = pygame.mouse.get_pos()
+            centerOffset[0] += (upPos[0] - downPos[0])
+            centerOffset[1] += (upPos[1] - downPos[1])
+
 
 
     screen.fill(BLACK)

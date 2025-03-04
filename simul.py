@@ -3,7 +3,7 @@ from math import *
 from itertools import permutations
 
 class Simulation():
-    def __init__(self, nPlanets = 3, planetMasses = (25.,25.,25.), planetPositions = [[100,0], [-50, 86.6025], [-50, -86.6025]], startingVelocities= [[0.,1.2], [-1, -0.6124], [1, -0.6124]]):
+    def __init__(self, nPlanets = 3, planetMasses = (40.,10.,25.), planetPositions = [[100,0], [-50, 86.6025], [-50, -86.6025]], startingVelocities= [[0.,1.2], [-1, -0.6124], [1, -0.6124]]):
         self.nPlanets = nPlanets
         self.planets = [Planet(planetPositions[i], planetMasses[i], startingVelocities[i]) for i in range(nPlanets)]
         self.G = 10.#6.6743e-11
