@@ -13,7 +13,7 @@ class Planet():
         
         self.trail = []
         self.trailLen = 0
-        
+
         self.col = [randint(0, 255) for _ in range(3)]
         
     def add_history(self,pos):
