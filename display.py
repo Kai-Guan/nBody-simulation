@@ -15,10 +15,10 @@ pygame.display.set_caption("nBody Simulation")
 
 clock = pygame.time.Clock()
 
-system = simul.Simulation()
+#system = simul.Simulation()
 #system = simul.Simulation(3, (50, 50, 0.00015), [[50,0], [-50, 0], [200, 0]], [[0, -1], [0, 1], [0, 2]])
 #system = simul.Simulation(nPlanets = 4, planetMasses = (25.,25.,25., 25.), planetPositions = [[100,0], [-100,0], [0,100], [0,-100]], startingVelocities= [[0,-1], [0,1], [1,0], [-1,0]])
-#system = simul.Simulation(planetPositions=[[float(random.randint(-200, -200)), float(random.randint(-200, 200))] for _ in range(3)], startingVelocities=[[random.uniform(-1,1),random.uniform(-1,1)] for _ in range(3)])
+system = simul.Simulation(nPlanets=5, planetMasses= [25. for _ in range(5)], planetPositions=[[float(random.randint(-300, 300)), float(random.randint(-300, 300))] for _ in range(5)], startingVelocities=[[random.uniform(-1,1),random.uniform(-1,1)] for _ in range(5)])
 
 running = True
 
@@ -43,7 +43,7 @@ while running:
             
         if event.type == pygame.MOUSEWHEEL:  # Detect scrolling
             zoomFactor *= 1 + (event.y * zoomSens)  # Increase/decrease zoom
-            zoomFactor = max(0.1, min(5.0, zoomFactor)) 
+            zoomFactor = max(0.1, min(5.0, zoomFactor))
     
     buttons = pygame.mouse.get_pressed()
     if buttons[0]:  # Left mouse button
