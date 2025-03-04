@@ -23,9 +23,13 @@ system = simul.Simulation()
 running = True
 
 def center_origin(surf, p):
-    return (p[0] + centerOffset[0] + surf.get_width() // 2, p[1] + centerOffset[1] + surf.get_height() // 2)
+    return ((p[0]*zoomFactor) + movingOffset[0] + surf.get_width() // 2, (p[1]*zoomFactor) + movingOffset[1] + surf.get_height() // 2)
 
-centerOffset = [0,0]
+storedOffset = [0,0]
+movingOffset = [0,0]
+
+zoomFactor = 1.
+zoomSens = 0.1
 
 while running:
 
@@ -35,10 +39,17 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             downPos = pygame.mouse.get_pos()
         if event.type == pygame.MOUSEBUTTONUP:
-            upPos = pygame.mouse.get_pos()
-            centerOffset[0] += (upPos[0] - downPos[0])
-            centerOffset[1] += (upPos[1] - downPos[1])
-
+            storedOffset = movingOffset[:]
+            
+        if event.type == pygame.MOUSEWHEEL:  # Detect scrolling
+            zoomFactor *= 1 + (event.y * zoomSens)  # Increase/decrease zoom
+            zoomFactor = max(0.1, min(5.0, zoomFactor)) 
+    
+    buttons = pygame.mouse.get_pressed()
+    if buttons[0]:  # Left mouse button
+        currentPos = pygame.mouse.get_pos()
+        movingOffset[0] = currentPos[0]-downPos[0] + storedOffset[0]
+        movingOffset[1] = currentPos[1]-downPos[1] + storedOffset[1]
 
 
     screen.fill(BLACK)
@@ -70,7 +81,7 @@ while running:
             pygame.draw.line(screen, start_color, center_origin(screen, start_point), center_origin(screen, end_point), 1)
             
     for planet in system.planets:
-        pygame.draw.circle(screen, planet.col, center_origin(screen, planet.pos), 10)
+        pygame.draw.circle(screen, planet.col, center_origin(screen, planet.pos), planet.size*zoomFactor)
 
 
     pygame.display.flip()
