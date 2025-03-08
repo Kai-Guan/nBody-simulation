@@ -19,6 +19,7 @@ system = simul.Simulation()
 #system = simul.Simulation(3, (50, 50, 0.00015), [[50,0], [-50, 0], [200, 0]], [[0, -1], [0, 1], [0, 2]])
 #system = simul.Simulation(nPlanets = 4, planetMasses = (25.,25.,25., 25.), planetPositions = [[100,0], [-100,0], [0,100], [0,-100]], startingVelocities= [[0,-1], [0,1], [1,0], [-1,0]])
 #system = simul.Simulation(nPlanets=5, planetMasses= [25. for _ in range(5)], planetPositions=[[float(random.randint(-300, 300)), float(random.randint(-300, 300))] for _ in range(5)], startingVelocities=[[random.uniform(-1,1),random.uniform(-1,1)] for _ in range(5)])
+#system = simul.Simulation(nPlanets=12, planetMasses= [25. for _ in range(12)], planetPositions=[[float(random.randint(-400, 400)), float(random.randint(-400, 400))] for _ in range(12)], startingVelocities=[[random.uniform(-1,1),random.uniform(-1,1)] for _ in range(12)])
 
 running = True
 
